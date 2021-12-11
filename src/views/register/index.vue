@@ -1,9 +1,9 @@
 <template>
   <div class="login-container">
-    <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form" auto-complete="on" label-position="left">
+    <el-form ref="registerForm" :model="registerForm" :rules="loginRules" class="login-form" auto-complete="on" label-position="left">
 
       <div class="title-container">
-        <h3 class="title">登录界面</h3>
+        <h3 class="title">注册界面</h3>
       </div>
 
       <el-form-item prop="username">
@@ -12,7 +12,7 @@
         </span>
         <el-input
           ref="username"
-          v-model="loginForm.username"
+          v-model="registerForm.username"
           placeholder="用户名"
           name="username"
           type="text"
@@ -28,7 +28,7 @@
         <el-input
           :key="passwordType"
           ref="password"
-          v-model="loginForm.password"
+          v-model="registerForm.password"
           :type="passwordType"
           placeholder="密码"
           name="password"
@@ -41,11 +41,32 @@
         </span>
       </el-form-item>
 
-      <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleLogin">登录</el-button>
+      <el-form-item prop="checkPassword">
+        <span class="svg-container">
+          <svg-icon icon-class="password" />
+        </span>
+        <el-input
+          :key="passwordType"
+          ref="checkPassword"
+          v-model="registerForm.checkPassword"
+          :type="passwordType"
+          placeholder="确认密码"
+          name="checkPassword"
+          tabindex="3"
+          auto-complete="on"
+          @keyup.enter.native="handleLogin"
+        />
+        <span class="show-pwd" @click="showPwd">
+          <svg-icon :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'" />
+        </span>
+      </el-form-item>
+
+      <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleLogin">注册</el-button>
 
       <div class="link">
-        <el-link :underline="false" href="/#/register">前往注册</el-link>
+        <el-link :underline="false" href="/#/login">返回登录</el-link>
       </div>
+
 <!--      <div class="tips">-->
 <!--        <span style="margin-right:20px;">username: admin</span>-->
 <!--        <span> password: any</span>-->
@@ -57,6 +78,7 @@
 
 <script>
 import { validUsername } from '@/utils/validate'
+import { Message } from 'element-ui'
 
 export default {
   name: 'Login',
@@ -75,14 +97,23 @@ export default {
         callback()
       }
     }
+    const validateCheckPassword = (rule, value, callback) => {
+      if (value !== this.registerForm.password) {
+        callback(new Error('两次输入密码不一致'))
+      } else {
+        callback()
+      }
+    }
     return {
-      loginForm: {
-        username: 'admin',
-        password: '111111'
+      registerForm: {
+        username: '',
+        password: '111111',
+        checkPassword: '111111'
       },
       loginRules: {
         username: [{ required: true, trigger: 'blur', validator: validateUsername }],
-        password: [{ required: true, trigger: 'blur', validator: validatePassword }]
+        password: [{ required: true, trigger: 'blur', validator: validatePassword }],
+        checkPassword: [{ required: true, trigger: 'blur', validator: validateCheckPassword }]
       },
       loading: false,
       passwordType: 'password',
@@ -109,17 +140,19 @@ export default {
       })
     },
     handleLogin() {
-      this.$refs.loginForm.validate(valid => {
+      this.$refs.registerForm.validate(valid => {
         if (valid) {
           this.loading = true
-          this.$store.dispatch('user/login', this.loginForm).then(() => {
-            this.$router.push({ path: this.redirect || '/' })
+          this.$store.dispatch('user/register', this.registerForm).then(() => {
+            // this.$router.push({ path: this.redirect || '/' })
+            Message.success('注册成功！')
+            this.$router.push({ path: '/login' })
             this.loading = false
           }).catch(() => {
             this.loading = false
           })
         } else {
-          console.log('error submit!!')
+          Message.warning('请按提示输入正确的用户名和密码！')
           return false
         }
       })
