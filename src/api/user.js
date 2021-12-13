@@ -30,3 +30,20 @@ export function logout() {
     method: 'post'
   })
 }
+
+export function updatePassword(data) {
+  return request({
+    url: '/vue-admin-template/user/updatePassword',
+    method: 'post',
+    data
+  })
+}
+
+export function updateAccount(data) {
+  return request({
+    url: '/vue-admin-template/user/updateAccount',
+    method: 'post',
+    data
+  })
+}
+

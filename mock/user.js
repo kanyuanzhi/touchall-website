@@ -1,4 +1,3 @@
-
 const tokens = {
   admin: {
     token: 'admin-token'
@@ -13,7 +12,8 @@ const users = {
     roles: ['admin'],
     introduction: 'I am a super administrator',
     avatar: 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif',
-    name: 'Super Admin'
+    name: 'Super Admin',
+    username: 'hjksahdj123213s'
   },
   'editor-token': {
     roles: ['editor'],
@@ -78,6 +78,18 @@ module.exports = [
       return {
         code: 20000,
         data: 'success'
+      }
+    }
+  },
+
+  // user update account
+  {
+    url: '/vue-admin-template/user/updateAccount',
+    type: 'post',
+    response: config => {
+      return {
+        code: 20000,
+        data: ''
       }
     }
   }

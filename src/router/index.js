@@ -64,6 +64,36 @@ export const constantRoutes = [
   },
 
   {
+    path: '/profile',
+    component: Layout,
+    redirect: 'noRedirect',
+    children: [
+      {
+        path: 'index',
+        name: 'Profile',
+        component: () => import('@/views/profile/index'),
+        meta: { title: '个人资料', icon: 'user' }
+      }
+    ]
+  },
+
+  {
+    path: '/user',
+    component: Layout,
+    redirect: 'noRedirect',
+    name: 'User',
+    meta: { title: '用户管理', icon: 'peoples' },
+    children: [
+      {
+        path: 'role',
+        name: 'Role',
+        component: () => import('@/views/tree/index'),
+        meta: { title: '权限设置', icon: 'edit-password' }
+      }
+    ]
+  },
+
+  {
     path: '/example',
     component: Layout,
     redirect: '/example/table',

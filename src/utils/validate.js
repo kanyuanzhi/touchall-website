@@ -2,8 +2,6 @@
  * Created by PanJiaChen on 16/11/18.
  */
 
-import fa from 'element-ui/src/locale/lang/fa'
-
 /**
  * @param {string} path
  * @returns {Boolean}

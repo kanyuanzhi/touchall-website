@@ -18,5 +18,7 @@ module.exports = {
    * @type {boolean} true | false
    * @description Whether need tagsView
    */
-  tagsView: true
+  tagsView: true,
+
+  avatarServer: 'http://127.0.0.1:8080/api/v1/user/avatar'
 }

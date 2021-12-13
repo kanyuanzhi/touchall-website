@@ -1,6 +1,6 @@
 <template>
-  <div class="login-container">
-    <el-form ref="registerForm" :model="registerForm" :rules="loginRules" class="login-form" auto-complete="on" label-position="left">
+  <div class="register-container">
+    <el-form ref="registerForm" :model="registerForm" :rules="registerRules" class="register-form" auto-complete="on" label-position="left">
 
       <div class="title-container">
         <h3 class="title">注册界面</h3>
@@ -34,7 +34,7 @@
           name="password"
           tabindex="2"
           auto-complete="on"
-          @keyup.enter.native="handleLogin"
+          @keyup.enter.native="handleRegister"
         />
         <span class="show-pwd" @click="showPwd">
           <svg-icon :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'" />
@@ -54,14 +54,14 @@
           name="checkPassword"
           tabindex="3"
           auto-complete="on"
-          @keyup.enter.native="handleLogin"
+          @keyup.enter.native="handleRegister"
         />
         <span class="show-pwd" @click="showPwd">
           <svg-icon :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'" />
         </span>
       </el-form-item>
 
-      <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleLogin">注册</el-button>
+      <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleRegister">注册</el-button>
 
       <div class="link">
         <el-link :underline="false" href="/#/login">返回登录</el-link>
@@ -81,7 +81,7 @@ import { validUsername } from '@/utils/validate'
 import { Message } from 'element-ui'
 
 export default {
-  name: 'Login',
+  name: 'Register',
   data() {
     const validateUsername = (rule, value, callback) => {
       if (!validUsername(value)) {
@@ -110,7 +110,7 @@ export default {
         password: '111111',
         checkPassword: '111111'
       },
-      loginRules: {
+      registerRules: {
         username: [{ required: true, trigger: 'blur', validator: validateUsername }],
         password: [{ required: true, trigger: 'blur', validator: validatePassword }],
         checkPassword: [{ required: true, trigger: 'blur', validator: validateCheckPassword }]
@@ -139,7 +139,7 @@ export default {
         this.$refs.password.focus()
       })
     },
-    handleLogin() {
+    handleRegister() {
       this.$refs.registerForm.validate(valid => {
         if (valid) {
           this.loading = true
@@ -170,13 +170,13 @@ $light_gray:#fff;
 $cursor: #fff;
 
 @supports (-webkit-mask: none) and (not (cater-color: $cursor)) {
-  .login-container .el-input input {
+  .register-container .el-input input {
     color: $cursor;
   }
 }
 
 /* reset element-ui css */
-.login-container {
+.register-container {
   .el-input {
     display: inline-block;
     height: 47px;
@@ -217,13 +217,13 @@ $bg:#2d3a4b;
 $dark_gray:#889aa4;
 $light_gray:#eee;
 
-.login-container {
+.register-container {
   min-height: 100%;
   width: 100%;
   background-color: $bg;
   overflow: hidden;
 
-  .login-form {
+  .register-form {
     position: relative;
     width: 520px;
     max-width: 100%;
