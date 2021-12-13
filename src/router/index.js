@@ -78,17 +78,35 @@ export const constantRoutes = [
   },
 
   {
-    path: '/user',
+    path: '/setting',
     component: Layout,
     redirect: 'noRedirect',
-    name: 'User',
-    meta: { title: '用户管理', icon: 'peoples' },
+    name: 'Setting',
+    meta: { title: '管理员设置', icon: 'setting', noCache: true },
     children: [
+      {
+        path: 'user',
+        name: 'User',
+        component: () => import('@/views/setting/user'),
+        meta: { title: '用户管理', icon: 'edit-profile' }
+      },
+      {
+        path: 'department',
+        name: 'Department',
+        component: () => import('@/views/setting/department'),
+        meta: { title: '部门管理', icon: 'edit-department' }
+      },
       {
         path: 'role',
         name: 'Role',
-        component: () => import('@/views/tree/index'),
-        meta: { title: '权限设置', icon: 'edit-password' }
+        component: () => import('@/views/setting/role/edit'),
+        meta: { title: '权限管理', icon: 'edit-role' }
+      },
+      {
+        path: 'role-distribute',
+        name: 'RoleDistribute',
+        component: () => import('@/views/setting/role/distribute'),
+        meta: { title: '权限分配', icon: 'distribute-role' }
       }
     ]
   },

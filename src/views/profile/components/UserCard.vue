@@ -20,7 +20,7 @@
     <div class="user-bio">
       <div class="user-bio-section">
         <div class="user-bio-section-header">
-          <svg-icon icon-class="education" />
+          <i class="el-icon-user" />
           <span>姓名</span></div>
         <div class="user-bio-section-body">
           <div class="text-muted">
@@ -30,17 +30,17 @@
       </div>
       <div class="user-bio-section">
         <div class="user-bio-section-header">
-          <svg-icon icon-class="education" />
+          <i class="el-icon-office-building" />
           <span>部门</span></div>
         <div class="user-bio-section-body">
           <div class="text-muted">
-            {{ department }}
+            {{ departmentIDtoName(department) }}
           </div>
         </div>
       </div>
       <div class="user-bio-section">
         <div class="user-bio-section-header">
-          <svg-icon icon-class="education" />
+          <i class="el-icon-mobile-phone" />
           <span>联系方式</span></div>
         <div class="user-bio-section-body">
           <div class="text-muted">
@@ -50,7 +50,7 @@
       </div>
       <div class="user-bio-section">
         <div class="user-bio-section-header">
-          <svg-icon icon-class="education" />
+          <i class="el-icon-reading" />
           <span>个人简介</span></div>
         <div class="user-bio-section-body">
           <div class="text-muted">
@@ -65,13 +65,12 @@
 <script>
 import PanThumb from '@/components/PanThumb'
 import { mapGetters } from 'vuex'
+import { departmentIDtoName } from '@/utils/common'
 
 export default {
   components: { PanThumb },
   data() {
-    return {
-
-    }
+    return {}
   },
   computed: {
     ...mapGetters([
@@ -83,6 +82,11 @@ export default {
       'avatar',
       'roles'
     ])
+  },
+  methods: {
+    departmentIDtoName(idList) {
+      return departmentIDtoName(idList)
+    }
   }
 }
 </script>

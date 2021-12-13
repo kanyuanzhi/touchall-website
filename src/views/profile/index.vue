@@ -41,18 +41,11 @@ import Password from './components/Password'
 
 export default {
   name: 'Profile',
-  components: { UserCard, Activity, Timeline, Account,Password },
+  components: { UserCard, Activity, Timeline, Account, Password },
   data() {
     return {
-      // user: {
-      //   username: this.username,
-      //   name: this.name,
-      //   department: this.department,
-      //   contact: this.contact,
-      //   introduction: this.introduction,
-      //   avatar: this.avatar,
-      //   role: this.roles.join(' | ')
-      // },
+      departmentDict: {},
+      departmentOptions: [],
       activeTab: 'account'
     }
   },
@@ -68,8 +61,8 @@ export default {
     ])
   },
   created() {
-  },
-  methods: {}
+
+  }
 }
 </script>
 

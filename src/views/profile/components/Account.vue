@@ -27,7 +27,15 @@
           <el-input v-model="accountForm.name" />
         </el-form-item>
         <el-form-item label="部门">
-          <el-input v-model="accountForm.department" />
+          <el-select v-model="accountForm.department" multiple placeholder="请选择">
+            <el-option
+              v-for="item in $store.getters.departmentOptions"
+              :key="item.id"
+              :label="item.name"
+              :value="item.id"
+            >
+            </el-option>
+          </el-select>
         </el-form-item>
         <el-form-item label="联系方式">
           <el-input v-model="accountForm.contact" />
@@ -65,7 +73,9 @@ export default {
       avatarServer: this.$store.state.settings.avatarServer,
 
       imagecropperShow: false,
-      imagecropperKey: 0
+      imagecropperKey: 0,
+
+      departmentOptions: null
     }
   },
   created() {
@@ -103,5 +113,8 @@ export default {
 .pan-thumb {
   margin: 5px auto 15px auto;
   display: table;
+}
+.el-select{
+  width: 100%;
 }
 </style>

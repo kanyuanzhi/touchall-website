@@ -47,3 +47,18 @@ export function updateAccount(data) {
   })
 }
 
+export function getList(data) {
+  return request({
+    url: '/vue-admin-template/user/list',
+    method: 'get'
+  })
+}
+
+export function deleteUser(username) {
+  return request({
+    url: '/vue-admin-template/user/delete',
+    method: 'delete',
+    params: { username }
+  })
+}
+

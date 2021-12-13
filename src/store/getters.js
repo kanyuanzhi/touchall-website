@@ -10,7 +10,11 @@ const getters = {
   avatar: state => state.user.avatar,
   roles: state => state.user.roles,
 
+  departmentDict: state => state.department.departmentDict,
+  departmentOptions: state => state.department.departmentOptions,
+
   permission_routes: state => state.permission.routes,
+
   visitedViews: state => state.tagsView.visitedViews,
   cachedViews: state => state.tagsView.cachedViews
 }

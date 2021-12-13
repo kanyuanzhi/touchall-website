@@ -45,6 +45,10 @@ router.beforeEach(async(to, from, next) => {
 
           // dynamically add accessible routes
           router.addRoutes(accessRoutes)
+
+          // 将部门ID与部门序号的对应关系存入store
+          await store.dispatch('department/initDepartment')
+
           // hack method to ensure that addRoutes is complete
           // set the replace: true, so the navigation will not leave a history record
           next({ ...to, replace: true })

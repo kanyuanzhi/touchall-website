@@ -1,7 +1,7 @@
 <template>
   <el-row>
     <el-col :span="12" :offset="6">
-      <el-form ref="passwordForm" :model="passwordForm" class="password-form" :rules="passwordRules" label-width="120px">
+      <el-form ref="passwordForm" :model="passwordForm" class="password-form" :rules="passwordRules" label-width="100px">
         <el-form-item label="原始密码" prop="oldPassword">
           <el-input
             ref="oldPassword"
@@ -20,7 +20,7 @@
             tabindex="2"
           />
         </el-form-item>
-        <el-form-item label="再次输入新密码" prop="checkNewPassword">
+        <el-form-item label="确认新密码" prop="checkNewPassword">
           <el-input
             ref="checkNewPassword"
             v-model="passwordForm.checkNewPassword"
