@@ -94,8 +94,8 @@ export default {
           this.$set(v, 'edited_introduction', v.introduction)
           this.$set(v, 'show_delete', true)
           this.$set(v, 'show_update', true)
-          v.created_at = dayjs(v.created_at).format('YYYY-MM-DD hh:mm:ss')
-          v.updated_at = dayjs(v.updated_at).format('YYYY-MM-DD hh:mm:ss')
+          v.created_at = dayjs(v.created_at).format('YYYY-MM-DD HH:mm:ss')
+          v.updated_at = dayjs(v.updated_at).format('YYYY-MM-DD HH:mm:ss')
           return v
         })
         this.listLoading = false
@@ -105,8 +105,9 @@ export default {
     },
     update(row) {
       update({ id: row.id, introduction: row.edited_introduction }).then(res => {
-        const { introduction } = res.data
+        const { introduction, updated_at } = res.data
         row.introduction = introduction
+        row.updated_at = dayjs(updated_at).format('YYYY-MM-DD HH:mm:ss')
         row.show_update = true
       }).catch(error => {
         this.$message.error(error)

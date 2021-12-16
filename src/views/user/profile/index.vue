@@ -10,7 +10,7 @@
             <el-input v-model="name" />
           </el-form-item>
           <el-form-item label="部门">
-            <el-input v-model="department" />
+            <el-input v-model="departments" />
           </el-form-item>
           <el-form-item label="联系方式">
             <el-input v-model="contact" />
@@ -41,7 +41,7 @@ export default {
     ...mapGetters([
       'username',
       'name',
-      'department',
+      'departments',
       'contact',
       'introduction'
     ])
@@ -52,7 +52,7 @@ export default {
       form: {
         username: this.username,
         name: this.name,
-        department: this.department,
+        departments: this.departments,
         contact: this.contact,
         introduction: this.introduction
       }

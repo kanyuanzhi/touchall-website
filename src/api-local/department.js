@@ -2,30 +2,30 @@ import request from '@/utils/request'
 
 export function getList() {
   return request({
-    url: '/departments',
+    url: '/vue-admin-template/department/',
     method: 'get'
   })
 }
 
 export function create(data) {
   return request({
-    url: '/department',
+    url: '/vue-admin-template/department/',
     method: 'post',
     data
   })
 }
 
-export function del(id) {
+export function del(departmentName) {
   return request({
-    url: '/department',
+    url: '/vue-admin-template/department/',
     method: 'delete',
-    params: { id }
+    params: { departmentName }
   })
 }
 
 export function update(data) {
   return request({
-    url: '/department',
+    url: '/vue-admin-template/department/',
     method: 'put',
     data
   })

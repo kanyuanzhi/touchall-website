@@ -3,10 +3,11 @@ import { getToken, setToken, removeToken } from '@/utils/auth'
 import router, { resetRouter } from '@/router'
 
 const state = {
+  id: '',
   token: getToken(),
   username: '',
   name: '',
-  department: '',
+  departments: [],
   contact: '',
   introduction: '',
   avatar: '',
@@ -14,6 +15,9 @@ const state = {
 }
 
 const mutations = {
+  SET_ID: (state, id) => {
+    state.id = id
+  },
   SET_TOKEN: (state, token) => {
     state.token = token
   },
@@ -23,8 +27,8 @@ const mutations = {
   SET_NAME: (state, name) => {
     state.name = name
   },
-  SET_DEPARTMENT: (state, department) => {
-    state.department = department
+  SET_DEPARTMENTS: (state, departments) => {
+    state.departments = departments
   },
   SET_CONTACT: (state, contact) => {
     state.contact = contact
@@ -73,18 +77,18 @@ const actions = {
 
   // user update account
   updateAccount({ commit }, userInfo) {
-    const { name, department, contact, introduction, avatar } = userInfo
+    const { id, name, departments, contact, introduction, avatar } = userInfo
     return new Promise((resolve, reject) => {
       updateAccount({
-        token: state.token,
+        id: id,
         name: name,
-        department: department,
+        departments: departments,
         contact: contact,
         introduction: introduction,
         avatar: avatar
       }).then(response => {
         commit('SET_NAME', name)
-        commit('SET_DEPARTMENT', department)
+        commit('SET_DEPARTMENTS', departments)
         commit('SET_CONTACT', contact)
         commit('SET_INTRODUCTION', introduction)
         commit('SET_AVATAR', avatar)
@@ -126,15 +130,16 @@ const actions = {
           reject('Verification failed, please Login again.')
         }
 
-        const { name, department, contact, introduction, avatar, roles, username } = data
+        const { id, name, departments, contact, introduction, avatar, roles, username } = data
 
         // roles must be a non-empty array
         if (!roles || roles.length <= 0) {
           reject('getInfo: roles must be a non-null array!')
         }
         commit('SET_USERNAME', username)
+        commit('SET_ID', id)
         commit('SET_NAME', name)
-        commit('SET_DEPARTMENT', department)
+        commit('SET_DEPARTMENTS', departments)
         commit('SET_CONTACT', contact)
         commit('SET_INTRODUCTION', introduction)
         commit('SET_AVATAR', avatar)

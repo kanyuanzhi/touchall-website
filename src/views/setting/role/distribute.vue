@@ -27,7 +27,7 @@
       <el-table-column label="部门" width="200" align="center">
         <template slot-scope="scope">
           {{
-            departmentIDtoName(scope.row.department)
+            departmentIDtoName(scope.row.departments)
           }}
         </template>
       </el-table-column>
@@ -48,16 +48,16 @@
           </template>
         </template>
       </el-table-column>
-      <el-table-column align="center" prop="created_at" label="注册时间" width="180">
-        <template slot-scope="scope">
-          <span>{{ scope.row.created_at }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column align="center" prop="updated_at" label="更新时间" width="180">
-        <template slot-scope="scope">
-          <span>{{ scope.row.updated_at }}</span>
-        </template>
-      </el-table-column>
+<!--      <el-table-column align="center" prop="created_at" label="注册时间" width="180">-->
+<!--        <template slot-scope="scope">-->
+<!--          <span>{{ scope.row.created_at }}</span>-->
+<!--        </template>-->
+<!--      </el-table-column>-->
+<!--      <el-table-column align="center" prop="updated_at" label="更新时间" width="180">-->
+<!--        <template slot-scope="scope">-->
+<!--          <span>{{ scope.row.updated_at }}</span>-->
+<!--        </template>-->
+<!--      </el-table-column>-->
       <el-table-column align="center" prop="operate" label="操作" width="200 ">
         <template slot-scope="scope">
           <template v-if="scope.row.show_update">
@@ -78,7 +78,7 @@
 </template>
 
 <script>
-import { getList, updateAccount } from '@/api/user'
+import { getList, updateRoles } from '@/api/user'
 import { getList as getRoleList } from '@/api/role'
 import * as dayjs from 'dayjs'
 import { departmentIDtoName } from '@/utils/common'
@@ -121,12 +121,14 @@ export default {
         })
         getList().then(res => {
           const { data } = res
+          if (!data || data.length <= 0) {
+            return
+          }
           this.list = data.map(v => {
             this.$set(v, 'edited_roles', v.roles)
-            this.$set(v, 'show_delete', true)
             this.$set(v, 'show_update', true)
-            v.created_at = dayjs(v.created_at).format('YYYY-MM-DD hh:mm:ss')
-            v.updated_at = dayjs(v.updated_at).format('YYYY-MM-DD hh:mm:ss')
+            v.created_at = dayjs(v.created_at).format('YYYY-MM-DD HH:mm:ss')
+            v.updated_at = dayjs(v.updated_at).format('YYYY-MM-DD HH:mm:ss')
             return v
           })
           this.listLoading = false
@@ -134,8 +136,13 @@ export default {
       })
     },
     update(row) {
-      updateAccount({
-        username: row.username,
+      if (row.edited_roles.length === 0) {
+        this.$message.error('必须至少指定一项权限')
+        this.cancelUpdate(row)
+        return
+      }
+      updateRoles({
+        id: row.id,
         roles: row.edited_roles
       }).then(res => {
         const { roles } = res.data
@@ -146,7 +153,7 @@ export default {
       })
     },
     cancelUpdate(row) {
-      row.edited_introduction = row.roles
+      row.edited_roles = row.roles
       row.show_update = true
     }
   }

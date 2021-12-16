@@ -53,7 +53,7 @@ export default {
     ...mapGetters([
       'username',
       'name',
-      'department',
+      'departments',
       'contact',
       'introduction',
       'avatar',

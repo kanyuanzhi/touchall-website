@@ -71,11 +71,11 @@
 
           <template v-if="scope.row.show_update">
             {{
-              departmentIDtoName(scope.row.department)
+              departmentIDtoName(scope.row.departments)
             }}
           </template>
           <template v-else>
-            <el-select v-model="scope.row.edited_department" multiple placeholder="请选择" size="small">
+            <el-select v-model="scope.row.edited_departments" multiple placeholder="请选择" size="small">
               <el-option
                 v-for="item in $store.getters.departmentOptions"
                 :key="item.id"
@@ -149,7 +149,7 @@
 </template>
 
 <script>
-import { getList, deleteUser, register, updateAccount } from '@/api/user'
+import { getList, deleteUser, register, updateAccount, getInfo } from '@/api/user'
 
 import * as dayjs from 'dayjs'
 import { validUsername } from '@/utils/validate'
@@ -226,13 +226,13 @@ export default {
         const { data } = response
         this.list = data.map(v => {
           this.$set(v, 'edited_name', v.name)
-          this.$set(v, 'edited_department', v.department)
+          this.$set(v, 'edited_departments', v.departments)
           this.$set(v, 'edited_contact', v.contact)
           this.$set(v, 'edited_introduction', v.introduction)
           this.$set(v, 'show_delete', true)
           this.$set(v, 'show_update', true)
-          v.created_at = dayjs(v.created_at).format('YYYY-MM-DD hh:mm:ss')
-          v.updated_at = dayjs(v.updated_at).format('YYYY-MM-DD hh:mm:ss')
+          v.created_at = dayjs(v.created_at).format('YYYY-MM-DD HH:mm:ss')
+          v.updated_at = dayjs(v.updated_at).format('YYYY-MM-DD HH:mm:ss')
           return v
         })
         this.listLoading = false
@@ -240,7 +240,7 @@ export default {
     },
     deleteUser(index, row) {
       this.listLoading = true
-      deleteUser(row.username).then(response => {
+      deleteUser(row.token).then(response => {
         this.list.splice(index, 1)
         this.listLoading = false
       })
@@ -250,17 +250,20 @@ export default {
         if (valid) {
           register(this.createUserForm).then(res => {
             const { data } = res
-            data.edited_name = data.name
-            data.edited_department = data.department
-            data.edited_contact = data.contact
-            data.edited_introduction = data.introduction
-            data.show_delete = true
-            data.show_update = true
-            data.created_at = dayjs(data.created_at).format('YYYY-MM-DD hh:mm:ss')
-            data.updated_at = dayjs(data.updated_at).format('YYYY-MM-DD hh:mm:ss')
-            this.list.unshift(data)
-            this.$message.success('添加新用户成功')
-            this.dialogVisible = false
+            getInfo(data.token).then(res => {
+              const { data } = res
+              data.edited_name = data.name
+              data.edited_departments = data.departments
+              data.edited_contact = data.contact
+              data.edited_introduction = data.introduction
+              data.show_delete = true
+              data.show_update = true
+              data.created_at = dayjs(data.created_at).format('YYYY-MM-DD HH:mm:ss')
+              data.updated_at = dayjs(data.updated_at).format('YYYY-MM-DD HH:mm:ss')
+              this.list.unshift(data)
+              this.$message.success('添加新用户成功')
+              this.dialogVisible = false
+            })
           }).catch(error => {
             this.$message.error(error)
           })
@@ -272,17 +275,18 @@ export default {
     },
     updateUser(row) {
       updateAccount({
-        username: row.username,
+        id: row.id,
         name: row.edited_name,
-        department: row.edited_department,
+        departments: row.edited_departments,
         contact: row.edited_contact,
         introduction: row.edited_introduction
       }).then(res => {
-        const { name, introduction, department, contact } = res.data
+        const { name, introduction, departments, contact, updated_at } = res.data
         row.name = name
-        row.department = department
+        row.departments = departments
         row.contact = contact
         row.introduction = introduction
+        row.updated_at = dayjs(updated_at).format('YYYY-MM-DD HH:mm:ss')
         row.show_update = true
       }).catch(error => {
         this.$message.error(error)
@@ -290,7 +294,7 @@ export default {
     },
     cancelUpdate(row) {
       row.edited_name = row.name
-      row.edited_department = row.department
+      row.edited_departments = row.departments
       row.edited_contact = row.contact
       row.edited_introduction = row.introduction
       row.show_update = true

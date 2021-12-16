@@ -143,8 +143,8 @@ export default {
           this.$set(v, 'edited_introduction', v.introduction)
           this.$set(v, 'show_delete', true)
           this.$set(v, 'show_update', true)
-          v.created_at = dayjs(v.created_at).format('YYYY-MM-DD hh:mm:ss')
-          v.updated_at = dayjs(v.updated_at).format('YYYY-MM-DD hh:mm:ss')
+          v.created_at = dayjs(v.created_at).format('YYYY-MM-DD HH:mm:ss')
+          v.updated_at = dayjs(v.updated_at).format('YYYY-MM-DD HH:mm:ss')
           return v
         })
         this.listLoading = false
@@ -162,8 +162,8 @@ export default {
         data.edited_introduction = data.introduction
         data.show_delete = true
         data.show_update = true
-        data.created_at = dayjs(data.created_at).format('YYYY-MM-DD hh:mm:ss')
-        data.updated_at = dayjs(data.updated_at).format('YYYY-MM-DD hh:mm:ss')
+        data.created_at = dayjs(data.created_at).format('YYYY-MM-DD HH:mm:ss')
+        data.updated_at = dayjs(data.updated_at).format('YYYY-MM-DD HH:mm:ss')
         this.list.unshift(data)
         this.$message.success('添加新部门成功')
         this.dialogVisible = false
@@ -173,7 +173,7 @@ export default {
     },
     deleteDepartment(index, row) {
       this.listLoading = true
-      del(row.name).then(res => {
+      del(row.id).then(res => {
         this.list.splice(index, 1)
         this.listLoading = false
       }).catch(error => {
@@ -181,10 +181,11 @@ export default {
       })
     },
     updateDepartment(row) {
-      update({ name: row.edited_name, introduction: row.edited_introduction }).then(res => {
-        const { name, introduction } = res.data
+      update({ id: row.id, name: row.edited_name, introduction: row.edited_introduction }).then(res => {
+        const { name, introduction, updated_at } = res.data
         row.name = name
         row.introduction = introduction
+        row.updated_at = dayjs(updated_at).format('YYYY-MM-DD HH:mm:ss')
         row.show_update = true
       }).catch(error => {
         this.$message.error(error)

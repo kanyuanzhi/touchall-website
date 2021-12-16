@@ -21,12 +21,16 @@ const actions = {
       const departmentOptions = []
       getList().then(res => {
         const { data } = res
-        data.map(v => {
-          departmentDict[v.id] = v.name
-          departmentOptions.push({ 'id': v.id, 'name': v.name })
-        })
-        commit('SET_DEPARTMENT_DICT', departmentDict)
-        commit('SET_DEPARTMENT_OPTIONS', departmentOptions)
+        if (!data || data.length <= 0) {
+          resolve('there are no departments init')
+        } else {
+          data.map(v => {
+            departmentDict[v.id] = v.name
+            departmentOptions.push({ 'id': v.id, 'name': v.name })
+          })
+          commit('SET_DEPARTMENT_DICT', departmentDict)
+          commit('SET_DEPARTMENT_OPTIONS', departmentOptions)
+        }
         resolve()
       }).catch(error => {
         reject(error)

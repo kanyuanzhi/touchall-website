@@ -97,7 +97,7 @@ export default {
     cancel() {
       this.username = this.$store.getters.username
       this.name = this.$store.getters.name
-      this.department = this.$store.getters.department
+      this.departments = this.$store.getters.departments
       this.contact = this.$store.getters.contact
       this.introduction = this.$store.getters.introduction
       this.avatar = this.$store.getters.avatar

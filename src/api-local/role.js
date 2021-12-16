@@ -2,14 +2,14 @@ import request from '@/utils/request'
 
 export function getList() {
   return request({
-    url: '/roles',
+    url: '/vue-admin-template/role/',
     method: 'get'
   })
 }
 
 export function update(data) {
   return request({
-    url: '/role',
+    url: '/vue-admin-template/role/',
     method: 'put',
     data
   })

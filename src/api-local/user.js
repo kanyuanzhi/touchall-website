@@ -2,7 +2,7 @@ import request from '@/utils/request'
 
 export function login(data) {
   return request({
-    url: '/user/login',
+    url: '/vue-admin-template/user/login',
     method: 'post',
     data
   })
@@ -10,7 +10,7 @@ export function login(data) {
 
 export function register(data) {
   return request({
-    url: '/user/register',
+    url: '/vue-admin-template/user/register',
     method: 'post',
     data
   })
@@ -18,7 +18,7 @@ export function register(data) {
 
 export function getInfo(token) {
   return request({
-    url: '/user',
+    url: '/vue-admin-template/user/info',
     method: 'get',
     params: { token }
   })
@@ -26,47 +26,39 @@ export function getInfo(token) {
 
 export function logout() {
   return request({
-    url: '/user/logout',
+    url: '/vue-admin-template/user/logout',
     method: 'post'
   })
 }
 
 export function updatePassword(data) {
   return request({
-    url: '/user/password',
-    method: 'put',
+    url: '/vue-admin-template/user/updatePassword',
+    method: 'post',
     data
   })
 }
 
 export function updateAccount(data) {
   return request({
-    url: '/user/account',
-    method: 'put',
-    data
-  })
-}
-
-export function updateRoles(data) {
-  return request({
-    url: '/user/roles',
-    method: 'put',
+    url: '/vue-admin-template/user/updateAccount',
+    method: 'post',
     data
   })
 }
 
 export function getList(data) {
   return request({
-    url: '/users',
+    url: '/vue-admin-template/user/list',
     method: 'get'
   })
 }
 
-export function deleteUser(token) {
+export function deleteUser(username) {
   return request({
-    url: '/user',
+    url: '/vue-admin-template/user/delete',
     method: 'delete',
-    params: { token }
+    params: { username }
   })
 }
 

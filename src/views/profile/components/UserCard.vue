@@ -34,7 +34,7 @@
           <span>部门</span></div>
         <div class="user-bio-section-body">
           <div class="text-muted">
-            {{ departmentIDtoName(department) }}
+            {{ departmentIDtoName(departments) }}
           </div>
         </div>
       </div>
@@ -76,7 +76,7 @@ export default {
     ...mapGetters([
       'username',
       'name',
-      'department',
+      'departments',
       'contact',
       'introduction',
       'avatar',

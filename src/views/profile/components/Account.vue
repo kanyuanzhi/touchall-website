@@ -27,7 +27,7 @@
           <el-input v-model="accountForm.name" />
         </el-form-item>
         <el-form-item label="部门">
-          <el-select v-model="accountForm.department" multiple placeholder="请选择">
+          <el-select v-model="accountForm.departments" multiple placeholder="请选择">
             <el-option
               v-for="item in $store.getters.departmentOptions"
               :key="item.id"
@@ -62,12 +62,12 @@ export default {
     return {
       accountForm: {
         username: this.$store.getters.username,
+        id: this.$store.getters.id,
         name: this.$store.getters.name,
-        department: this.$store.getters.department,
+        departments: this.$store.getters.departments,
         contact: this.$store.getters.contact,
         introduction: this.$store.getters.introduction,
-        avatar: this.$store.getters.avatar,
-        token: this.$store.getters.token
+        avatar: this.$store.getters.avatar
       },
 
       avatarServer: this.$store.state.settings.avatarServer,
@@ -91,7 +91,7 @@ export default {
     cancel() {
       this.accountForm.username = this.$store.getters.username
       this.accountForm.name = this.$store.getters.name
-      this.accountForm.department = this.$store.getters.department
+      this.accountForm.departments = this.$store.getters.departments
       this.accountForm.contact = this.$store.getters.contact
       this.accountForm.introduction = this.$store.getters.introduction
       this.accountForm.avatar = this.$store.getters.avatar
@@ -114,7 +114,8 @@ export default {
   margin: 5px auto 15px auto;
   display: table;
 }
-.el-select{
+
+.el-select {
   width: 100%;
 }
 </style>
