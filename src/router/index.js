@@ -112,23 +112,29 @@ export const constantRoutes = [
   },
 
   {
-    path: '/example',
+    path: '/terminal',
     component: Layout,
     redirect: '/example/table',
-    name: 'Example',
-    meta: { title: 'Example', icon: 'el-icon-s-help' },
+    name: 'Terminal',
+    meta: { title: '终端管理', icon: 'terminal-management' },
     children: [
       {
-        path: 'table',
-        name: 'Table',
-        component: () => import('@/views/table/index'),
-        meta: { title: 'Table', icon: 'table' }
+        path: 'basic',
+        name: 'Basic',
+        component: () => import('@/views/terminal/basic'),
+        meta: { title: '基本信息', icon: 'basic-info' }
       },
       {
-        path: 'tree',
-        name: 'Tree',
+        path: 'running',
+        name: 'Running',
+        component: () => import('@/views/terminal/basic'),
+        meta: { title: '运行状态', icon: 'terminal-running' }
+      },
+      {
+        path: 'add',
+        name: 'Add',
         component: () => import('@/views/tree/index'),
-        meta: { title: 'Tree', icon: 'tree' }
+        meta: { title: '添加终端', icon: 'add' }
       }
     ]
   },

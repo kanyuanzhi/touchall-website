@@ -120,8 +120,8 @@
         <template slot-scope="scope">
           <template v-if="scope.row.show_delete && scope.row.show_update">
             <span>
-              <el-button type="primary" size="small" @click="scope.row.show_update=false">修改</el-button>
-              <el-button type="danger" size="small" @click="scope.row.show_delete=false">删除</el-button>
+              <el-button type="primary" size="mini" @click="scope.row.show_update=false">修改</el-button>
+              <el-button type="danger" size="mini" @click="scope.row.show_delete=false">删除</el-button>
             </span>
           </template>
           <template v-else>
@@ -129,16 +129,16 @@
               <span>
                 <el-button
                   type="warning"
-                  size="small"
+                  size="mini"
                   @click="deleteUser(scope.$index, scope.row)"
                 >确认删除</el-button>
-                <el-button type="primary" size="small" @click="scope.row.show_delete=true">取消</el-button>
+                <el-button type="primary" size="mini" @click="scope.row.show_delete=true">取消</el-button>
               </span>
             </template>
             <template v-else>
               <span>
-                <el-button type="warning" size="small" @click="updateUser(scope.row)">确认修改</el-button>
-                <el-button type="primary" size="small" @click="cancelUpdate(scope.row)">取消</el-button>
+                <el-button type="warning" size="mini" @click="updateUser(scope.row)">确认修改</el-button>
+                <el-button type="primary" size="mini" @click="cancelUpdate(scope.row)">取消</el-button>
               </span>
             </template>
           </template>
