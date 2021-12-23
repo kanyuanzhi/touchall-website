@@ -14,6 +14,8 @@ const getters = {
   departmentDict: state => state.department.departmentDict,
   departmentOptions: state => state.department.departmentOptions,
 
+  terminalSelected: state => state.terminal.terminalSelected,
+
   permission_routes: state => state.permission.routes,
 
   visitedViews: state => state.tagsView.visitedViews,

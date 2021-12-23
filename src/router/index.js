@@ -127,14 +127,73 @@ export const constantRoutes = [
       {
         path: 'running',
         name: 'Running',
-        component: () => import('@/views/terminal/basic'),
-        meta: { title: '运行状态', icon: 'terminal-running' }
+        component: () => import('@/views/terminal/running'),
+        meta: { title: '运行状态', icon: 'terminal-running' },
+        children: [
+          {
+            path: 'overview-table',
+            component: () => import('@/views/terminal/running/overview/table'),
+            name: 'OverviewTable',
+            meta: { title: '总览-表格' }
+          },
+          {
+            path: 'overview-chart',
+            component: () => import('@/views/terminal/running/overview/chart'),
+            name: 'OverviewChart',
+            meta: { title: '总览-图表' }
+          },
+          {
+            path: 'cpu-total',
+            component: () => import('@/views/terminal/running/cpu/total'),
+            name: 'CPUTotal',
+            meta: { title: 'CPU（平均）' }
+          },
+          {
+            path: 'cpu-per',
+            component: () => import('@/views/terminal/running/cpu/per'),
+            name: 'CPUPer',
+            meta: { title: 'CPU（单核）' }
+          },
+          {
+            path: 'mem',
+            component: () => import('@/views/terminal/running/mem'),
+            name: 'Mem',
+            meta: { title: '内存' }
+          },
+          {
+            path: 'disk',
+            component: () => import('@/views/terminal/running/disk'),
+            name: 'Disk',
+            meta: { title: '硬盘' }
+          }]
       },
       {
         path: 'add',
         name: 'Add',
         component: () => import('@/views/tree/index'),
         meta: { title: '添加终端', icon: 'add' }
+      }
+    ]
+  },
+
+  {
+    path: '/terminal-group',
+    component: Layout,
+    redirect: '/example/table',
+    name: 'TerminalGroup',
+    meta: { title: '终端组管理', icon: 'terminal-management' },
+    children: [
+      {
+        path: 'basic',
+        name: 'Basic',
+        component: () => import('@/views/terminal/basic'),
+        meta: { title: '基本信息', icon: 'basic-info' }
+      },
+      {
+        path: 'running',
+        name: 'Running',
+        component: () => import('@/views/terminal/running'),
+        meta: { title: '运行状态', icon: 'terminal-running' }
       }
     ]
   },
