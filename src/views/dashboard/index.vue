@@ -1,11 +1,16 @@
 <template>
   <div class="dashboard-container">
     <div class="dashboard-text">name: {{ name }}</div>
+    <div>
+      <video controls width="100%" height="500" id="videoElement"></video>
+      <button @click="play">播放</button>
+    </div>
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
+import flvjs from 'flv.js'
 
 export default {
   name: 'Dashboard',
@@ -13,6 +18,33 @@ export default {
     ...mapGetters([
       'name'
     ])
+  },
+  data() {
+    return {
+      flvPlayer: null
+    }
+  },
+  mounted() {
+    if (flvjs.isSupported()) {
+      var videoElement = document.getElementById('videoElement')
+      this.flvPlayer = flvjs.createPlayer({
+        type: 'flv',
+        isLive: true,
+        hasAudio: false,
+        url: 'http://127.0.0.1:9090/live/test.flv',
+        enableWorker: true,
+        enableStashBuffer: false,
+        stashInitialSize: 128
+      })
+      this.flvPlayer.attachMediaElement(videoElement)
+      this.flvPlayer.load()
+      this.flvPlayer.play()
+    }
+  },
+  methods: {
+    play() {
+      this.flvPlayer.play()
+    }
   }
 }
 </script>
@@ -22,6 +54,7 @@ export default {
   &-container {
     margin: 30px;
   }
+
   &-text {
     font-size: 30px;
     line-height: 46px;

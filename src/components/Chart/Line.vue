@@ -150,7 +150,7 @@ export default {
         // },
         grid: [{
           top: '20%',
-          left: '2%',
+          left: '5%',
           right: '8%',
           bottom: '20%',
           containLabel: true

@@ -15,6 +15,7 @@ const getters = {
   departmentOptions: state => state.department.departmentOptions,
 
   terminalSelected: state => state.terminal.terminalSelected,
+  terminalGroupSelected: state => state.terminal.terminalGroupSelected,
 
   permission_routes: state => state.permission.routes,
 

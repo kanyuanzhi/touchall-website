@@ -114,9 +114,9 @@ export const constantRoutes = [
   {
     path: '/terminal',
     component: Layout,
-    redirect: '/example/table',
+    // redirect: '/example/table',
     name: 'Terminal',
-    meta: { title: '终端管理', icon: 'terminal-management' },
+    meta: { title: '终端管理', icon: 'terminal' },
     children: [
       {
         path: 'basic',
@@ -168,10 +168,10 @@ export const constantRoutes = [
           }]
       },
       {
-        path: 'add',
-        name: 'Add',
-        component: () => import('@/views/tree/index'),
-        meta: { title: '添加终端', icon: 'add' }
+        path: 'edit',
+        name: 'Edit',
+        component: () => import('@/views/terminal/edit'),
+        meta: { title: '编辑终端', icon: 'edit' }
       }
     ]
   },
@@ -179,21 +179,47 @@ export const constantRoutes = [
   {
     path: '/terminal-group',
     component: Layout,
-    redirect: '/example/table',
     name: 'TerminalGroup',
-    meta: { title: '终端组管理', icon: 'terminal-management' },
+    meta: { title: '终端组管理', icon: 'terminals' },
     children: [
       {
-        path: 'basic',
-        name: 'Basic',
-        component: () => import('@/views/terminal/basic'),
-        meta: { title: '基本信息', icon: 'basic-info' }
+        path: 'running',
+        name: 'TerminalGroupRunning',
+        component: () => import('@/views/terminal-group/running'),
+        meta: { title: '运行状态', icon: 'terminal-running' }
       },
       {
-        path: 'running',
-        name: 'Running',
-        component: () => import('@/views/terminal/running'),
-        meta: { title: '运行状态', icon: 'terminal-running' }
+        path: 'edit-members',
+        name: 'EditMembers',
+        component: () => import('@/views/terminal-group/edit-members'),
+        meta: { title: '编辑成员', icon: 'edit' }
+      },
+      {
+        path: 'edit',
+        name: 'TerminalGroupEdit',
+        component: () => import('@/views/terminal-group/edit'),
+        meta: { title: '编辑终端组', icon: 'edit' }
+      }
+    ]
+  },
+
+  {
+    path: '/remote-command',
+    component: Layout,
+    name: 'RemoteCommand',
+    meta: { title: '远程命令', icon: 'command' },
+    children: [
+      {
+        path: 'process',
+        name: 'Process',
+        component: () => import('@/views/remote-command/process'),
+        meta: { title: '单个执行', icon: 'terminal' }
+      },
+      {
+        path: 'batch-process',
+        name: 'BatchProcess',
+        component: () => import('@/views/remote-command/batch-process'),
+        meta: { title: '批量执行', icon: 'terminals' }
       }
     ]
   },

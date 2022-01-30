@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import TerminalListDrawer from '../components/TerminalListDrawer'
+import TerminalListDrawer from '@/components/Drawer/TerminalListDrawer'
 
 export default {
   components: {
@@ -40,15 +40,12 @@ export default {
   },
   methods: {
     onRowClick(row) {
-      this.$store.commit('terminal/SET_TERMINAL_SELECTED', row)
-
       if (this.ws !== null) {
         this.ws.close()
       }
       this.terminalSelected = [row['index'], row['name'], row['manager'], row['net_basic']['ip']].join(' ')
       this.basicData = row
-      this.reqData = row['net_basic']['mac']
-      this.initWebsocket()
+      this.reqData.push(row['net_basic']['mac'])
     },
     initWebsocket() {
       this.ws = new WebSocket('ws://127.0.0.1:10000/touch')
@@ -59,7 +56,7 @@ export default {
     onOpen() {
       const msgID = 102
       // const data = ['84:a9:38:48:d5:e6', 'bb', 'cc', 'dd', '']
-      const req = { 'msg_id': msgID, 'data': [this.reqData] }
+      const req = { 'msg_id': msgID, 'data': this.reqData }
       this.ws.send(JSON.stringify(req))
     },
     onMessage(evt) {

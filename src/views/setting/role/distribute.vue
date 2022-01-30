@@ -145,8 +145,7 @@ export default {
         id: row.id,
         roles: row.edited_roles
       }).then(res => {
-        const { roles } = res.data
-        row.roles = roles
+        row.roles = row.edited_roles
         row.show_update = true
       }).catch(error => {
         this.$message.error(error)

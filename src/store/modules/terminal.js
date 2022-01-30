@@ -1,10 +1,14 @@
 const state = {
-  terminalSelected: null
+  terminalSelected: null,
+  terminalGroupSelected: null
 }
 
 const mutations = {
   SET_TERMINAL_SELECTED: (state, terminalSelected) => {
     state.terminalSelected = terminalSelected
+  },
+  SET_TERMINAL_GROUP_SELECTED: (state, terminalGroupSelected) => {
+    state.terminalGroupSelected = terminalGroupSelected
   }
 }
 

@@ -114,7 +114,7 @@
 </template>
 
 <script>
-import TerminalListDrawer from '../components/TerminalListDrawer'
+import TerminalListDrawer from '@/components/Drawer/TerminalListDrawer'
 
 export default {
   components: {

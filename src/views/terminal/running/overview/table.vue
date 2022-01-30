@@ -3,7 +3,6 @@
     <el-row>
       <el-col :span="18" :offset="3">
         <el-card shadow="always">
-
           <table class="overview-table">
             <tr class="overview-subtitle">
               <td colspan="4">基本信息</td>
