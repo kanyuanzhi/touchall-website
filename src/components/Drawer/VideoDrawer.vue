@@ -1,6 +1,6 @@
 <template>
   <el-drawer
-    title="选择终端"
+    title="选择监控"
     :visible.sync="drawer"
     :direction="direction"
     :before-close="handleClose"
@@ -15,19 +15,19 @@
       @row-click="onRowClick"
     >
       <el-table-column type="index" :index="indexMethod" align="center" label="序号" width="70" />
-      <el-table-column align="center" label="自定义名称" width="">
+      <el-table-column align="center" label="名称" width="">
         <template slot-scope="scope">
           <span style="font-size: smaller">{{ scope.row['name'] }}</span>
         </template>
       </el-table-column>
-      <el-table-column align="center" label="管理人" width="100">
-        <template slot-scope="scope">
-          <span>{{ scope.row['manager'] }}</span>
-        </template>
-      </el-table-column>
       <el-table-column align="center" label="IP" width="150">
         <template slot-scope="scope">
-          <span>{{ scope.row['net_basic']['ip'] }}</span>
+          <span>{{ scope.row['ip'] }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column align="center" label="位置" width="150">
+        <template slot-scope="scope">
+          <span>{{ scope.row['location'] }}</span>
         </template>
       </el-table-column>
     </el-table>
@@ -35,7 +35,7 @@
 </template>
 
 <script>
-import { getList } from '@/api/terminal'
+import { getList } from '@/api/video'
 
 export default {
   name: 'TerminalListDrawer',
@@ -68,7 +68,7 @@ export default {
       this.$emit('drawer-close', false)
     },
     onRowClick(row) {
-      this.$store.commit('terminal/SET_TERMINAL_SELECTED', row)
+      this.$store.commit('video/SET_VIDEO_SELECTED', row)
       this.$emit('row-click', row)
       this.$emit('drawer-close', false)
     },

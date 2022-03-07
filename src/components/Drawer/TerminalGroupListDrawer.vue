@@ -17,12 +17,12 @@
       <el-table-column type="index" :index="indexMethod" align="center" label="序号" width="70" />
       <el-table-column align="center" label="名称" width="">
         <template slot-scope="scope">
-          <span style="font-size: smaller">{{ scope.row.name }}</span>
+          <span style="font-size: smaller">{{ scope.row['name'] }}</span>
         </template>
       </el-table-column>
       <el-table-column align="center" label="管理人" width="">
         <template slot-scope="scope">
-          <span>{{ scope.row.manager }}</span>
+          <span>{{ scope.row['manager'] }}</span>
         </template>
       </el-table-column>
     </el-table>

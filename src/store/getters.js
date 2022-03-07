@@ -17,6 +17,8 @@ const getters = {
   terminalSelected: state => state.terminal.terminalSelected,
   terminalGroupSelected: state => state.terminal.terminalGroupSelected,
 
+  videoSelected: state => state.video.videoSelected,
+
   permission_routes: state => state.permission.routes,
 
   visitedViews: state => state.tagsView.visitedViews,

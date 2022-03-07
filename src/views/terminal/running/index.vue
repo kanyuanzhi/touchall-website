@@ -45,7 +45,8 @@ export default {
       }
       this.terminalSelected = [row['index'], row['name'], row['manager'], row['net_basic']['ip']].join(' ')
       this.basicData = row
-      this.reqData.push(row['net_basic']['mac'])
+      this.reqData = [row['net_basic']['mac']]
+      this.initWebsocket()
     },
     initWebsocket() {
       this.ws = new WebSocket('ws://127.0.0.1:10000/touch')

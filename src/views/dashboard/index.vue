@@ -1,52 +1,65 @@
 <template>
   <div class="dashboard-container">
     <div class="dashboard-text">name: {{ name }}</div>
+    {{img_src}}
     <div>
-      <video controls width="100%" height="500" id="videoElement"></video>
-      <button @click="play">播放</button>
+      <img width="1280" height="720" :src=img_src />
     </div>
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-import flvjs from 'flv.js'
+import { mapGetters } from "vuex";
+import flvjs from "flv.js";
 
 export default {
-  name: 'Dashboard',
+  name: "Dashboard",
   computed: {
-    ...mapGetters([
-      'name'
-    ])
+    ...mapGetters(["name"]),
   },
   data() {
     return {
-      flvPlayer: null
-    }
+      img_src: 'data:image/jpg;base64,',
+      ws: null,
+    };
   },
-  mounted() {
-    if (flvjs.isSupported()) {
-      var videoElement = document.getElementById('videoElement')
-      this.flvPlayer = flvjs.createPlayer({
-        type: 'flv',
-        isLive: true,
-        hasAudio: false,
-        url: 'http://127.0.0.1:9090/live/test.flv',
-        enableWorker: true,
-        enableStashBuffer: false,
-        stashInitialSize: 128
-      })
-      this.flvPlayer.attachMediaElement(videoElement)
-      this.flvPlayer.load()
-      this.flvPlayer.play()
+  created() {
+    // this.initWebsocket()
+  },
+  beforeDestroy() {
+    if (this.ws !== null) {
+      this.ws.close()
     }
   },
   methods: {
-    play() {
-      this.flvPlayer.play()
+    initWebsocket() {
+      this.ws = new WebSocket('ws://127.0.0.1:10000/touch')
+      this.ws.onopen = this.onOpen
+      this.ws.onmessage = this.onMessage
+      this.ws.onerror = this.onError
+    },
+    onOpen() {
+      const msgID = 120
+      // const data = ['84:a9:38:48:d5:e6', 'bb', 'cc', 'dd', '']
+      const req = { 'msg_id': msgID, 'data': ['123'] }
+      this.ws.send(JSON.stringify(req))
+      console.log('send success')
+    },
+    onMessage(evt) {
+      let data = evt.data
+      // console.log(data)
+      this.runningData = JSON.parse(data)
+      // console.log(this.runningData)
+      this.img_src = 'data:image/jpg;base64,' + this.runningData['data']
+    },
+    onError() {
+      this.$message.error({
+        message: 'error in websocket connection establishment',
+        duration: 5000
+      })
     }
-  }
-}
+  },
+};
 </script>
 
 <style lang="scss" scoped>

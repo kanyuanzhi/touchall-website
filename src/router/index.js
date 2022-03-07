@@ -225,6 +225,33 @@ export const constantRoutes = [
   },
 
   {
+    path: '/video',
+    component: Layout,
+    name: 'Video',
+    meta: { title: '智能监控', icon: 'video' },
+    children: [
+      {
+        path: 'watch',
+        name: 'VideoWatch',
+        component: () => import('@/views/video/watch'),
+        meta: { title: '监控画面', icon: 'video-watch' }
+      },
+      {
+        path: 'edit',
+        name: 'VideoEdit',
+        component: () => import('@/views/video/edit'),
+        meta: { title: '监控管理', icon: 'video-edit' }
+      },
+      {
+        path: 'trace',
+        name: 'PersonTrace',
+        component: () => import('@/views/remote-command/batch-process'),
+        meta: { title: '人员轨迹', icon: 'video-edit' }
+      }
+    ]
+  },
+
+  {
     path: '/form',
     component: Layout,
     children: [
