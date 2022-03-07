@@ -61,10 +61,10 @@ export default {
       this.videoSelected = [row['index'], row['name'], row['ip'], row['location']].join(' ')
 
       this.reqData = [row['ip']]
-      setTimeout(this.initWebsocket, 1000)
+      setTimeout( this.initWebsocket, 1000)
       this.$message.success(this.reqData)
     },
-    initWebsocket() {
+    initWebsocket() { 
       this.ws = new WebSocket('ws://127.0.0.1:10000/touch')
       this.ws.onopen = this.onOpen
       this.ws.onmessage = this.onMessage
