@@ -252,6 +252,19 @@ export const constantRoutes = [
   },
 
   {
+    path: '/gantt',
+    component: Layout,
+    children: [
+      {
+        path: 'index',
+        name: 'Gantt',
+        component: () => import('@/views/gantt/index'),
+        meta: { title: '甘特图', icon: 'form', affix: true }
+      }
+    ]
+  },
+
+  {
     path: '/form',
     component: Layout,
     children: [

@@ -43,6 +43,7 @@ export default {
       if (this.ws !== null) {
         this.ws.close()
       }
+      debugger
       this.terminalSelected = [row['index'], row['name'], row['manager'], row['net_basic']['ip']].join(' ')
       this.basicData = row
       this.reqData = [row['net_basic']['mac']]
